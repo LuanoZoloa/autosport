@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUTOSPORT — Vehículos Usados Seleccionados</title>
+<meta name="description" content="Concesionaria de vehículos usados seleccionados en Berazategui. Financiación, consignaciones y atención personalizada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--red:#E31837;
+--red-dark:#B91430;
+--red-glow:rgba(227,24,55,.15);
+--bg:#0A0A0A;
+--bg2:#111;
+--bg3:#161616;
+--card:#141414;
+--card-hover:#1A1A1A;
+--white:#FFFFFF;
+--gray100:#F5F5F5;
+--gray300:#B0B0B0;
+--gray500:#6B6B6B;
+--gray700:#2A2A2A;
+--radius:14px;
+--transition:.35s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--gray300);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;color:var(--white);letter-spacing:.04em;line-height:1.1}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* ── HEADER ── */
+.header{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:16px 0;transition:var(--transition)}
+.header.scrolled{background:rgba(10,10,10,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05)}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+.logo span{color:var(--red)}
+nav{display:flex;align-items:center;gap:32px}
+nav a{font-size:13px;font-weight:500;color:var(--gray300);letter-spacing:.04em;text-transform:uppercase;transition:var(--transition);position:relative}
+nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--red);transition:var(--transition)}
+nav a:hover{color:var(--white)}
+nav a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:var(--transition);text-transform:uppercase;letter-spacing:.04em;font-family:'DM Sans',sans-serif}
+.btn-red{background:var(--red);color:var(--white)}
+.btn-red:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(227,24,55,.35)}
+.btn-outline{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.2)}
+.btn-outline:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px)}
+.btn-header{padding:10px 22px;font-size:13px;border-radius:8px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--white);transition:var(--transition);border-radius:2px}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0A0A0A 0%,#1a0a0e 40%,#0A0A0A 100%)}
+.hero-bg::before{content:'';position:absolute;top:-50%;right:-20%;width:800px;height:800px;background:radial-gradient(circle,rgba(227,24,55,.08) 0%,transparent 70%);pointer-events:none}
+.hero-bg::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:200px;background:linear-gradient(to top,var(--bg),transparent)}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:720px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:40px;border:1px solid rgba(227,24,55,.3);background:rgba(227,24,55,.06);font-size:12px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:28px}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(48px,8vw,96px);line-height:.95;margin-bottom:20px}
+.hero h1 .accent{color:var(--red);display:block}
+.hero p{font-size:18px;color:var(--gray300);max-width:480px;margin-bottom:36px;line-height:1.7}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:48px;margin-top:56px;padding-top:40px;border-top:1px solid rgba(255,255,255,.06)}
+.hero-stat .number{font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--white)}
+.hero-stat .number span{color:var(--red)}
+.hero-stat .label{font-size:12px;color:var(--gray500);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+
+/* ── BENEFICIOS ── */
+.section{padding:100px 0}
+.section-header{text-align:center;margin-bottom:64px}
+.section-header .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+.section-header h2{font-size:clamp(36px,5vw,56px)}
+.section-header p{color:var(--gray500);max-width:500px;margin:16px auto 0;font-size:15px}
+
+.benefits-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.benefit-card{background:var(--card);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:36px 28px;text-align:center;transition:var(--transition);position:relative;overflow:hidden}
+.benefit-card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60px;height:2px;background:var(--red);opacity:0;transition:var(--transition)}
+.benefit-card:hover{transform:translateY(-6px);border-color:rgba(227,24,55,.15);background:var(--card-hover)}
+.benefit-card:hover::before{opacity:1}
+.benefit-icon{width:52px;height:52px;border-radius:12px;background:rgba(227,24,55,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.benefit-icon svg{width:24px;height:24px;stroke:var(--red);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.benefit-card h3{font-size:20px;margin-bottom:8px}
+.benefit-card p{font-size:13px;color:var(--gray500);line-height:1.6}
+
+/* ── CATÁLOGO ── */
+.catalogo{background:var(--bg2)}
+.vehiculos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.vehiculo-card{background:var(--card);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);overflow:hidden;transition:var(--transition);position:relative}
+.vehiculo-card:hover{transform:translateY(-6px);border-color:rgba(227,24,55,.2);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.vehiculo-img{aspect-ratio:16/10;overflow:hidden;position:relative;background:var(--bg3)}
+.carousel-track{display:flex;width:100%;height:100%;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.carousel-track img{width:100%;height:100%;object-fit:cover;flex-shrink:0}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.1);color:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;opacity:0;transition:var(--transition);font-size:0}
+.carousel-btn svg{width:16px;height:16px;stroke:var(--white);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.carousel-btn.prev{left:10px}
+.carousel-btn.next{right:10px}
+.vehiculo-card:hover .carousel-btn{opacity:1}
+.carousel-btn:hover{background:rgba(227,24,55,.7);border-color:transparent}
+.carousel-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3}
+.carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35);transition:var(--transition);cursor:pointer;border:none;padding:0}
+.carousel-dot.active{background:var(--white);width:18px;border-radius:3px}
+.vehiculo-year{position:absolute;top:14px;left:14px;padding:5px 12px;border-radius:6px;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);font-size:12px;font-weight:600;color:var(--white);letter-spacing:.04em;z-index:3}
+.vehiculo-body{padding:22px}
+.vehiculo-body h3{font-size:20px;margin-bottom:6px;font-family:'DM Sans',sans-serif;font-weight:700;color:var(--white);letter-spacing:0}
+.vehiculo-specs{display:flex;gap:16px;margin:10px 0 16px;font-size:13px;color:var(--gray500)}
+.vehiculo-specs span{display:flex;align-items:center;gap:5px}
+.vehiculo-specs svg{width:14px;height:14px;stroke:var(--gray500);fill:none;stroke-width:1.5}
+.vehiculo-price{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--red);letter-spacing:.02em}
+.vehiculo-price small{font-size:14px;color:var(--gray500);font-family:'DM Sans',sans-serif;font-weight:400;display:block;margin-bottom:2px;letter-spacing:0}
+.vehiculo-footer{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.05)}
+.btn-consultar{padding:10px 22px;font-size:13px;border-radius:8px}
+.consultar-label{font-size:12px;color:var(--gray500);text-transform:uppercase;letter-spacing:.06em}
+
+/* ── MÁS INFO ── */
+.vehiculo-toggle{width:100%;padding:12px 0 0;margin-top:14px;border:none;border-top:1px solid rgba(255,255,255,.05);background:none;color:var(--gray500);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:var(--transition);font-family:'DM Sans',sans-serif}
+.vehiculo-toggle:hover{color:var(--red)}
+.vehiculo-toggle svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s ease}
+.vehiculo-toggle.open svg{transform:rotate(180deg)}
+.vehiculo-info{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.vehiculo-info-inner{padding:16px 0 4px}
+.vehiculo-info-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:13px}
+.vehiculo-info-row:last-child{border-bottom:none}
+.vehiculo-info-row .info-label{color:var(--gray500)}
+.vehiculo-info-row .info-value{color:var(--white);font-weight:500;text-align:right}
+
+/* ── NOSOTROS ── */
+.nosotros-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.nosotros-image{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;background:var(--bg3)}
+.nosotros-image img{width:100%;height:100%;object-fit:cover}
+.nosotros-image::after{content:'';position:absolute;inset:0;border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);pointer-events:none}
+.nosotros-accent{position:absolute;bottom:-20px;right:-20px;width:200px;height:200px;border:2px solid rgba(227,24,55,.15);border-radius:var(--radius);pointer-events:none}
+.nosotros-content .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+.nosotros-content h2{font-size:clamp(36px,5vw,52px);margin-bottom:20px}
+.nosotros-content p{font-size:15px;line-height:1.8;color:var(--gray300);margin-bottom:28px}
+.nosotros-features{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.nosotros-feature{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;color:var(--white)}
+.nosotros-feature .dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0}
+
+/* ── WHATSAPP CTA ── */
+.cta-section{position:relative;overflow:hidden;background:linear-gradient(135deg,#1a0a0e 0%,var(--bg) 50%,#0d1a0d 100%)}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(227,24,55,.06) 0%,transparent 70%);pointer-events:none}
+.cta-inner{position:relative;z-index:2;text-align:center;max-width:600px;margin:0 auto}
+.cta-inner .wa-icon{width:72px;height:72px;border-radius:20px;background:rgba(37,211,102,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;border:1px solid rgba(37,211,102,.15)}
+.cta-inner .wa-icon svg{width:36px;height:36px}
+.cta-inner h2{font-size:clamp(36px,5vw,52px);margin-bottom:16px}
+.cta-inner p{font-size:16px;color:var(--gray300);margin-bottom:36px;line-height:1.7}
+.btn-wa{background:#25D366;color:var(--white)}
+.btn-wa:hover{background:#1fba59;transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,.3)}
+
+/* ── UBICACIÓN ── */
+.ubicacion{background:var(--bg2)}
+.ubicacion-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.ubicacion-info .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+.ubicacion-info h2{font-size:clamp(32px,4vw,48px);margin-bottom:16px}
+.ubicacion-info p{font-size:15px;color:var(--gray300);line-height:1.7;margin-bottom:10px}
+.ubicacion-address{display:flex;align-items:flex-start;gap:12px;margin:24px 0 32px;padding:20px;background:var(--card);border-radius:12px;border:1px solid rgba(255,255,255,.04)}
+.ubicacion-address svg{width:20px;height:20px;stroke:var(--red);fill:none;stroke-width:1.5;flex-shrink:0;margin-top:2px}
+.ubicacion-address div{font-size:14px;color:var(--gray300);line-height:1.6}
+.ubicacion-address strong{color:var(--white);display:block;margin-bottom:2px}
+.map-container{border-radius:var(--radius);overflow:hidden;aspect-ratio:1/1;border:1px solid rgba(255,255,255,.04)}
+.map-container iframe{width:100%;height:100%;border:0;filter:invert(.92) hue-rotate(180deg) brightness(.9) contrast(1.1)}
+
+/* ── FOOTER ── */
+.footer{border-top:1px solid rgba(255,255,255,.04);padding:60px 0 30px;background:var(--bg)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand .logo{margin-bottom:14px}
+.footer-brand p{font-size:13px;color:var(--gray500);max-width:300px;line-height:1.7}
+.footer-col h4{font-size:14px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px}
+.footer-col a{display:block;font-size:14px;color:var(--gray500);margin-bottom:10px;transition:var(--transition)}
+.footer-col a:hover{color:var(--red)}
+.footer-bottom{padding-top:24px;border-top:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--gray500)}
+
+/* ── FLOATING WA ── */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:999;width:60px;height:60px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.35);transition:var(--transition);cursor:pointer}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.5)}
+.wa-float svg{width:30px;height:30px;fill:var(--white)}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(10,10,10,.97);backdrop-filter:blur(20px);z-index:998;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;pointer-events:none;transition:var(--transition)}
+.mobile-nav.active{opacity:1;pointer-events:all}
+.mobile-nav a{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--white);letter-spacing:.08em;transition:var(--transition)}
+.mobile-nav a:hover{color:var(--red)}
+
+/* ── REVEAL ANIMATION ── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+.benefits-grid{grid-template-columns:repeat(2,1fr)}
+.vehiculos-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+nav{display:none}
+.hamburger{display:flex}
+.hero h1{font-size:clamp(40px,10vw,64px)}
+.hero-stats{gap:28px;flex-wrap:wrap}
+.benefits-grid{grid-template-columns:1fr}
+.vehiculos-grid{grid-template-columns:1fr}
+.nosotros-grid{grid-template-columns:1fr;gap:36px}
+.nosotros-accent{display:none}
+.ubicacion-grid{grid-template-columns:1fr}
+.map-container{aspect-ratio:16/10}
+.footer-grid{grid-template-columns:1fr;gap:28px}
+.footer-bottom{flex-direction:column;gap:8px;text-align:center}
+.hero-buttons .btn{width:100%;justify-content:center}
+.section{padding:72px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+<div class="container header-inner">
+<a href="#" class="logo">AUTO<span>SPORT</span></a>
+<nav>
+<a href="#inicio">Inicio</a>
+<a href="#vehiculos">Vehículos</a>
+<a href="#nosotros">Nosotros</a>
+<a href="#contacto">Contacto</a>
+</nav>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20un%20vehículo" class="btn btn-red btn-header" style="display:none" id="headerWa">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 0 0 .611.611l4.458-1.495A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 0 1-5.39-1.584l-.386-.232-2.642.886.886-2.642-.232-.386A9.94 9.94 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+WhatsApp
+</a>
+<button class="hamburger" id="hamburger" aria-label="Menú">
+<span></span><span></span><span></span>
+</button>
+</div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+<a href="#inicio" onclick="closeMobile()">Inicio</a>
+<a href="#vehiculos" onclick="closeMobile()">Vehículos</a>
+<a href="#nosotros" onclick="closeMobile()">Nosotros</a>
+<a href="#contacto" onclick="closeMobile()">Contacto</a>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20un%20vehículo" class="btn btn-red" onclick="closeMobile()">WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+<div class="hero-bg"></div>
+<div class="hero-grid-lines"></div>
+<div class="container hero-content">
+<div class="hero-badge reveal">Berazategui, Buenos Aires</div>
+<h1 class="reveal reveal-delay-1">AUTOS USADOS<span class="accent">SELECCIONADOS</span></h1>
+<p class="reveal reveal-delay-2">Financiación, consignaciones y atención personalizada. Encontrá tu próximo vehículo con la confianza que buscás.</p>
+<div class="hero-buttons reveal reveal-delay-3">
+<a href="#vehiculos" class="btn btn-red">Ver vehículos</a>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20un%20vehículo" class="btn btn-outline">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 0 0 .611.611l4.458-1.495A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 0 1-5.39-1.584l-.386-.232-2.642.886.886-2.642-.232-.386A9.94 9.94 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+Contactar por WhatsApp
+</a>
+</div>
+<div class="hero-stats reveal">
+<div class="hero-stat">
+<div class="number">14<span>+</span></div>
+<div class="label">Años de experiencia</div>
+</div>
+<div class="hero-stat">
+<div class="number">100<span>%</span></div>
+<div class="label">Garantía de confianza</div>
+</div>
+<div class="hero-stat">
+<div class="number">24<span>hs</span></div>
+<div class="label">Respuesta rápida</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- BENEFICIOS -->
+<section class="section" id="beneficios">
+<div class="container">
+<div class="section-header reveal">
+<div class="tag">¿Por qué elegirnos?</div>
+<h2>EXPERIENCIA QUE RESPALDA</h2>
+</div>
+<div class="benefits-grid">
+<div class="benefit-card reveal">
+<div class="benefit-icon">
+<svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+</div>
+<h3>Usados Seleccionados</h3>
+<p>Cada vehículo pasa por una revisión exhaustiva antes de entrar a nuestro stock.</p>
+</div>
+<div class="benefit-card reveal reveal-delay-1">
+<div class="benefit-icon">
+<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+</div>
+<h3>Financiación Disponible</h3>
+<p>Opciones de financiación flexibles para que puedas acceder a tu vehículo ideal.</p>
+</div>
+<div class="benefit-card reveal reveal-delay-2">
+<div class="benefit-icon">
+<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+</div>
+<h3>Gestoría Propia</h3>
+<p>Nos encargamos de todos los trámites para que vos no tengas que preocuparte.</p>
+</div>
+<div class="benefit-card reveal reveal-delay-3">
+<div class="benefit-icon">
+<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+</div>
+<h3>Atención Personalizada</h3>
+<p>Te asesoramos de manera individual para encontrar la mejor opción de compra.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CATÁLOGO -->
+<section class="section catalogo" id="vehiculos">
+<div class="container">
+<div class="section-header reveal">
+<div class="tag">Nuestro stock</div>
+<h2>VEHÍCULOS DISPONIBLES</h2>
+<p>Consultá por financiación y formas de pago para cualquier unidad.</p>
+</div>
+<div class="vehiculos-grid">
+
+<!-- V1 — Audi Q2 -->
+<div class="vehiculo-card reveal">
+<div class="vehiculo-img" data-carousel>
+<div class="carousel-track">
+<img src="img/audi-q2-1.jpg" alt="Audi Q2 35 TFSI Advanced 2024" loading="lazy">
+<img src="img/audi-q2-2.jpg" alt="Audi Q2 interior" loading="lazy">
+<img src="img/audi-q2-3.jpg" alt="Audi Q2 lateral" loading="lazy">
+<img src="img/audi-q2-4.jpg" alt="Audi Q2 trasera" loading="lazy">
+<img src="img/audi-q2-5.jpg" alt="Audi Q2 detalle" loading="lazy">
+</div>
+<button class="carousel-btn prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+<button class="carousel-btn next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+<div class="carousel-dots"></div>
+<span class="vehiculo-year">2024</span>
+</div>
+<div class="vehiculo-body">
+<h3>Audi Q2 35 TFSI Advanced</h3>
+<div class="vehiculo-specs">
+<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>0 km</span>
+</div>
+<div class="vehiculo-price">USD 43.000</div>
+<div class="vehiculo-footer">
+<span class="consultar-label">0 km — Disponible</span>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20el%20Audi%20Q2%20TFSI%202024" class="btn btn-red btn-consultar">Consultar</a>
+</div>
+<button class="vehiculo-toggle" onclick="toggleInfo(this)">Más información <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+<div class="vehiculo-info">
+<div class="vehiculo-info-inner">
+<div class="vehiculo-info-row"><span class="info-label">Motor</span><span class="info-value">1.5 TFSI 150cv</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Transmisión</span><span class="info-value">S-Tronic automática</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Versión</span><span class="info-value">Advanced</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Combustible</span><span class="info-value">Nafta</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Condición</span><span class="info-value">0 km</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- V2 — Mercedes-Benz Clase A -->
+<div class="vehiculo-card reveal reveal-delay-1">
+<div class="vehiculo-img" data-carousel>
+<div class="carousel-track">
+<img src="img/mercedes-a-1.jpg" alt="Mercedes-Benz Clase A 2018" loading="lazy">
+<img src="img/mercedes-a-2.jpg" alt="Mercedes-Benz Clase A interior" loading="lazy">
+<img src="img/mercedes-a-3.jpg" alt="Mercedes-Benz Clase A lateral" loading="lazy">
+<img src="img/mercedes-a-4.jpg" alt="Mercedes-Benz Clase A trasera" loading="lazy">
+<img src="img/mercedes-a-5.jpg" alt="Mercedes-Benz Clase A detalle" loading="lazy">
+</div>
+<button class="carousel-btn prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+<button class="carousel-btn next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+<div class="carousel-dots"></div>
+<span class="vehiculo-year">2018</span>
+</div>
+<div class="vehiculo-body">
+<h3>Mercedes-Benz Clase A 1.6</h3>
+<div class="vehiculo-specs">
+<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>85.000 km</span>
+</div>
+<div class="vehiculo-price">Consultar</div>
+<div class="vehiculo-footer">
+<span class="consultar-label">Precio a convenir</span>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20el%20Mercedes-Benz%20Clase%20A%202018" class="btn btn-red btn-consultar">Consultar</a>
+</div>
+<button class="vehiculo-toggle" onclick="toggleInfo(this)">Más información <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+<div class="vehiculo-info">
+<div class="vehiculo-info-inner">
+<div class="vehiculo-info-row"><span class="info-label">Motor</span><span class="info-value">1.6L</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Kilómetros</span><span class="info-value">85.000 km</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Combustible</span><span class="info-value">Nafta</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Año</span><span class="info-value">2018</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- V3 — Toyota Hilux GR-Sport -->
+<div class="vehiculo-card reveal reveal-delay-2">
+<div class="vehiculo-img" data-carousel>
+<div class="carousel-track">
+<img src="img/hilux-gr-1.jpg" alt="Toyota Hilux GR-Sport 2022" loading="lazy">
+<img src="img/hilux-gr-2.jpg" alt="Hilux GR-Sport interior" loading="lazy">
+<img src="img/hilux-gr-3.jpg" alt="Hilux GR-Sport lateral" loading="lazy">
+<img src="img/hilux-gr-4.jpg" alt="Hilux GR-Sport trasera" loading="lazy">
+<img src="img/hilux-gr-5.jpg" alt="Hilux GR-Sport detalle" loading="lazy">
+</div>
+<button class="carousel-btn prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+<button class="carousel-btn next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+<div class="carousel-dots"></div>
+<span class="vehiculo-year">2022</span>
+</div>
+<div class="vehiculo-body">
+<h3>Toyota Hilux GR-Sport 4x4</h3>
+<div class="vehiculo-specs">
+<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>55.000 km</span>
+</div>
+<div class="vehiculo-price">Consultar</div>
+<div class="vehiculo-footer">
+<span class="consultar-label">Financiación disponible</span>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20la%20Hilux%20GR-Sport%202022" class="btn btn-red btn-consultar">Consultar</a>
+</div>
+<button class="vehiculo-toggle" onclick="toggleInfo(this)">Más información <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+<div class="vehiculo-info">
+<div class="vehiculo-info-inner">
+<div class="vehiculo-info-row"><span class="info-label">Motor</span><span class="info-value">2.8L Diesel 224cv</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Transmisión</span><span class="info-value">Automática 6 velocidades</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Tracción</span><span class="info-value">4x4</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Versión</span><span class="info-value">GR-Sport</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Combustible</span><span class="info-value">Diesel</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- V4 — RAM 1500 Laramie -->
+<div class="vehiculo-card reveal">
+<div class="vehiculo-img" data-carousel>
+<div class="carousel-track">
+<img src="img/ram-1500-1.jpg" alt="RAM 1500 Laramie 2018" loading="lazy">
+<img src="img/ram-1500-2.jpg" alt="RAM 1500 interior" loading="lazy">
+<img src="img/ram-1500-3.jpg" alt="RAM 1500 lateral" loading="lazy">
+<img src="img/ram-1500-4.jpg" alt="RAM 1500 trasera" loading="lazy">
+<img src="img/ram-1500-5.jpg" alt="RAM 1500 detalle" loading="lazy">
+</div>
+<button class="carousel-btn prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+<button class="carousel-btn next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+<div class="carousel-dots"></div>
+<span class="vehiculo-year">2018</span>
+</div>
+<div class="vehiculo-body">
+<h3>RAM 1500 5.7 Laramie ATX V8</h3>
+<div class="vehiculo-specs">
+<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>80.000 km</span>
+</div>
+<div class="vehiculo-price">
+<small>Anticipo</small>USD 25.000
+</div>
+<div class="vehiculo-footer">
+<span class="consultar-label">Consultá planes</span>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20la%20RAM%201500%20Laramie%202018" class="btn btn-red btn-consultar">Consultar</a>
+</div>
+<button class="vehiculo-toggle" onclick="toggleInfo(this)">Más información <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+<div class="vehiculo-info">
+<div class="vehiculo-info-inner">
+<div class="vehiculo-info-row"><span class="info-label">Motor</span><span class="info-value">5.7L HEMI V8 395cv</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Transmisión</span><span class="info-value">Automática ATX 8 velocidades</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Versión</span><span class="info-value">Laramie</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Combustible</span><span class="info-value">Nafta</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Anticipo</span><span class="info-value">USD 25.000</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- V5 — Renault Sandero RS -->
+<div class="vehiculo-card reveal reveal-delay-1">
+<div class="vehiculo-img" data-carousel>
+<div class="carousel-track">
+<img src="img/sandero-rs-1.jpg" alt="Renault Sandero RS 2016" loading="lazy">
+<img src="img/sandero-rs-2.jpg" alt="Sandero RS interior" loading="lazy">
+<img src="img/sandero-rs-3.jpg" alt="Sandero RS lateral" loading="lazy">
+<img src="img/sandero-rs-4.jpg" alt="Sandero RS trasera" loading="lazy">
+</div>
+<button class="carousel-btn prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+<button class="carousel-btn next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+<div class="carousel-dots"></div>
+<span class="vehiculo-year">2016</span>
+</div>
+<div class="vehiculo-body">
+<h3>Renault Sandero RS 2.0</h3>
+<div class="vehiculo-specs">
+<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>60.000 km</span>
+</div>
+<div class="vehiculo-price">$17.200.000</div>
+<div class="vehiculo-footer">
+<span class="consultar-label">Financiación disponible</span>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20el%20Sandero%20RS%202016" class="btn btn-red btn-consultar">Consultar</a>
+</div>
+<button class="vehiculo-toggle" onclick="toggleInfo(this)">Más información <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+<div class="vehiculo-info">
+<div class="vehiculo-info-inner">
+<div class="vehiculo-info-row"><span class="info-label">Motor</span><span class="info-value">2.0L 145cv</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Transmisión</span><span class="info-value">Manual 6 velocidades</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Versión</span><span class="info-value">RS</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Combustible</span><span class="info-value">Nafta</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- V6 — Volkswagen Saveiro -->
+<div class="vehiculo-card reveal reveal-delay-2">
+<div class="vehiculo-img" data-carousel>
+<div class="carousel-track">
+<img src="img/saveiro-1.jpg" alt="Volkswagen Saveiro 2020" loading="lazy">
+<img src="img/saveiro-2.jpg" alt="Saveiro interior" loading="lazy">
+<img src="img/saveiro-3.jpg" alt="Saveiro lateral" loading="lazy">
+<img src="img/saveiro-4.jpg" alt="Saveiro trasera" loading="lazy">
+</div>
+<button class="carousel-btn prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+<button class="carousel-btn next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+<div class="carousel-dots"></div>
+<span class="vehiculo-year">2020</span>
+</div>
+<div class="vehiculo-body">
+<h3>Volkswagen Saveiro</h3>
+<div class="vehiculo-specs">
+<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>70.000 km</span>
+</div>
+<div class="vehiculo-price">Consultar</div>
+<div class="vehiculo-footer">
+<span class="consultar-label">Precio a convenir</span>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20la%20Volkswagen%20Saveiro%202020" class="btn btn-red btn-consultar">Consultar</a>
+</div>
+<button class="vehiculo-toggle" onclick="toggleInfo(this)">Más información <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+<div class="vehiculo-info">
+<div class="vehiculo-info-inner">
+<div class="vehiculo-info-row"><span class="info-label">Kilómetros</span><span class="info-value">70.000 km</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Año</span><span class="info-value">2020</span></div>
+<div class="vehiculo-info-row"><span class="info-label">Combustible</span><span class="info-value">Nafta</span></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="section" id="nosotros">
+<div class="container">
+<div class="nosotros-grid">
+<div class="nosotros-image reveal" style="position:relative">
+<img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600&h=450&fit=crop" alt="AUTOSPORT showroom" loading="lazy">
+<div class="nosotros-accent"></div>
+</div>
+<div class="nosotros-content reveal">
+<div class="tag">Sobre nosotros</div>
+<h2>MÁS DE 14 AÑOS EN EL MERCADO</h2>
+<p>En AUTOSPORT trabajamos con vehículos seleccionados y atención personalizada para que cada cliente encuentre la mejor opción de compra. Nos respaldan años de trayectoria y cientos de clientes satisfechos.</p>
+<div class="nosotros-features">
+<div class="nosotros-feature"><div class="dot"></div>Financiación</div>
+<div class="nosotros-feature"><div class="dot"></div>Consignaciones</div>
+<div class="nosotros-feature"><div class="dot"></div>Compra y venta</div>
+<div class="nosotros-feature"><div class="dot"></div>Gestoría propia</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- WHATSAPP CTA -->
+<section class="section cta-section" id="contacto">
+<div class="container">
+<div class="cta-inner reveal">
+<div class="wa-icon">
+<svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 0 0 .611.611l4.458-1.495A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 0 1-5.39-1.584l-.386-.232-2.642.886.886-2.642-.232-.386A9.94 9.94 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+</div>
+<h2>¿BUSCÁS TU PRÓXIMO VEHÍCULO?</h2>
+<p>Respondemos consultas rápidamente para ayudarte a encontrar tu próximo vehículo. Escribinos y te asesoramos al instante.</p>
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20un%20vehículo" class="btn btn-wa">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 0 0 .611.611l4.458-1.495A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 0 1-5.39-1.584l-.386-.232-2.642.886.886-2.642-.232-.386A9.94 9.94 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+Hablar por WhatsApp
+</a>
+</div>
+</div>
+</section>
+
+<!-- UBICACIÓN -->
+<section class="section ubicacion" id="ubicacion">
+<div class="container">
+<div class="ubicacion-grid">
+<div class="ubicacion-info reveal">
+<div class="tag">Ubicación</div>
+<h2>VISITÁ NUESTRA CONCESIONARIA</h2>
+<p>Conocé personalmente nuestro stock de vehículos seleccionados y recibí asesoramiento sin compromiso.</p>
+<div class="ubicacion-address">
+<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+<div>
+<strong>Dardo Rocha 1920</strong>
+Berazategui, Buenos Aires
+</div>
+</div>
+<a href="https://www.google.com/maps/dir//Dardo+Rocha+1920+Berazategui+Buenos+Aires" target="_blank" class="btn btn-red">Cómo llegar</a>
+</div>
+<div class="map-container reveal reveal-delay-1">
+<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-58.23%2C-34.77%2C-58.20%2C-34.75&layer=mapnik&marker=-34.7625%2C-58.2125" loading="lazy"></iframe>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<div class="logo">AUTO<span>SPORT</span></div>
+<p>Concesionaria de vehículos usados seleccionados. Más de 14 años brindando confianza y atención personalizada en Berazategui.</p>
+</div>
+<div class="footer-col">
+<h4>Navegación</h4>
+<a href="#inicio">Inicio</a>
+<a href="#vehiculos">Vehículos</a>
+<a href="#nosotros">Nosotros</a>
+<a href="#contacto">Contacto</a>
+</div>
+<div class="footer-col">
+<h4>Contacto</h4>
+<a href="https://api.whatsapp.com/send?phone=541126962915">+54 11 2696-2915</a>
+<a href="#ubicacion">Dardo Rocha 1920, Berazategui</a>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2025 AUTOSPORT — Todos los derechos reservados</span>
+<span>Berazategui, Buenos Aires</span>
+</div>
+</div>
+</footer>
+
+<!-- FLOATING WA -->
+<a href="https://api.whatsapp.com/send?phone=541126962915&text=Hola%2C%20quiero%20consultar%20por%20un%20vehículo" class="wa-float" target="_blank" aria-label="WhatsApp">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 0 0 .611.611l4.458-1.495A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 0 1-5.39-1.584l-.386-.232-2.642.886.886-2.642-.232-.386A9.94 9.94 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+</a>
+
+<script>
+// Header scroll
+const header=document.getElementById('header');
+const headerWa=document.getElementById('headerWa');
+window.addEventListener('scroll',()=>{
+if(window.scrollY>60){header.classList.add('scrolled');headerWa.style.display='inline-flex'}
+else{header.classList.remove('scrolled');headerWa.style.display='none'}
+});
+
+// Mobile nav
+const hamburger=document.getElementById('hamburger');
+const mobileNav=document.getElementById('mobileNav');
+hamburger.addEventListener('click',()=>{
+mobileNav.classList.toggle('active');
+hamburger.classList.toggle('active');
+document.body.style.overflow=mobileNav.classList.contains('active')?'hidden':'';
+});
+function closeMobile(){
+mobileNav.classList.remove('active');
+hamburger.classList.remove('active');
+document.body.style.overflow='';
+}
+
+// Reveal on scroll
+const reveals=document.querySelectorAll('.reveal');
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});
+},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+reveals.forEach(r=>observer.observe(r));
+
+// Smooth scroll for anchors
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+a.addEventListener('click',e=>{
+const t=document.querySelector(a.getAttribute('href'));
+if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+});
+});
+
+// Toggle más información
+function toggleInfo(btn){
+btn.classList.toggle('open');
+const info=btn.nextElementSibling;
+if(info.style.maxHeight){info.style.maxHeight=null}
+else{info.style.maxHeight=info.scrollHeight+'px'}
+}
+
+// Carousels
+document.querySelectorAll('[data-carousel]').forEach(carousel=>{
+const track=carousel.querySelector('.carousel-track');
+const imgs=track.querySelectorAll('img');
+const dotsC=carousel.querySelector('.carousel-dots');
+const prevBtn=carousel.querySelector('.carousel-btn.prev');
+const nextBtn=carousel.querySelector('.carousel-btn.next');
+let current=0;
+const total=imgs.length;
+
+// Generate dots
+for(let i=0;i<total;i++){
+const dot=document.createElement('button');
+dot.className='carousel-dot'+(i===0?' active':'');
+dot.setAttribute('aria-label','Imagen '+(i+1));
+dot.addEventListener('click',()=>goTo(i));
+dotsC.appendChild(dot);
+}
+const dots=dotsC.querySelectorAll('.carousel-dot');
+
+function goTo(n){
+current=((n%total)+total)%total;
+track.style.transform='translateX(-'+(current*100)+'%)';
+dots.forEach((d,i)=>d.classList.toggle('active',i===current));
+}
+
+prevBtn.addEventListener('click',e=>{e.stopPropagation();goTo(current-1)});
+nextBtn.addEventListener('click',e=>{e.stopPropagation();goTo(current+1)});
+
+// Touch/swipe support
+let startX=0,diffX=0,dragging=false;
+carousel.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;dragging=true},{passive:true});
+carousel.addEventListener('touchmove',e=>{if(dragging)diffX=e.touches[0].clientX-startX},{passive:true});
+carousel.addEventListener('touchend',()=>{
+if(Math.abs(diffX)>40){diffX<0?goTo(current+1):goTo(current-1)}
+diffX=0;dragging=false;
+});
+
+// Remove broken images gracefully
+imgs.forEach(img=>{
+img.addEventListener('error',()=>{img.style.display='none'});
+});
+});
+</script>
+</body>
+</html>
